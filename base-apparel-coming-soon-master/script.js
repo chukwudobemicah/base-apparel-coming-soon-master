@@ -10,18 +10,25 @@ const validateEmail = function (email) {
 const clearErrorMessage = function () {
   return (errorMessage.textContent = '');
 };
-const addErrorMessage = function () {
-  errorMessage.textContent = 'Email accepted';
+const addValidMessage = function () {
+  errorMessage.textContent = 'Email accepted!';
   errorMessage.style.color = 'green';
 };
-const checkEmail = function (inputValue) {
-  if (inputValue === '' && !validateEmail(inputValue)) {
+const checkEmail = function (email) {
+  if (email === '' || !validateEmail(email)) {
+    console.log(email);
     errorMessage.classList.remove('hidden');
     input.classList.add('input-error');
+  } else {
+    errorMessage.classList.remove('hidden');
+    clearErrorMessage();
+    addValidMessage();
   }
 };
 
 form.addEventListener('submit', function (e) {
   e.preventDefault();
-  checkEmail(input.value);
+  let email = input.value;
+  console.log(email);
+  checkEmail(email);
 });
